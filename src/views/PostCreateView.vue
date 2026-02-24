@@ -10,7 +10,7 @@
         </label>
 
         <label>
-          작성자
+          이름
           <input v-model="form.name" type="text" required />
         </label>
 
@@ -19,7 +19,7 @@
           <textarea v-model="form.contents" rows="8" required />
         </label>
 
-        <button type="submit" :disabled="loading">등록하기</button>
+        <button type="submit" :disabled="loading">제출</button>
       </form>
 
       <p v-if="message" :class="{ error: isError }">{{ message }}</p>
@@ -29,6 +29,7 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import communityApi from '@/api/community'
 
 const form = reactive({
@@ -40,6 +41,7 @@ const form = reactive({
 const loading = ref(false)
 const message = ref('')
 const isError = ref(false)
+const router = useRouter()
 
 const submitPost = async () => {
   loading.value = true
@@ -53,19 +55,20 @@ const submitPost = async () => {
       contents: form.contents,
     })
 
-    if (result && result.success) {
-      message.value = '게시글이 등록되었습니다.'
+    if (!result || result.success !== false) {
+      message.value = '게시글???�록?�었?�니??'
       form.title = ''
       form.name = ''
       form.contents = ''
+      router.push('/board/list')
       return
     }
 
     isError.value = true
-    message.value = result?.message || '게시글 등록에 실패했습니다.'
+    message.value = result?.message || '게시글 ?�록???�패?�습?�다.'
   } catch (err) {
     isError.value = true
-    message.value = err?.message || '요청 중 오류가 발생했습니다.'
+    message.value = err?.message || '?�청 �??�류가 발생?�습?�다.'
   } finally {
     loading.value = false
   }
@@ -117,3 +120,4 @@ button:disabled {
   color: #dc2626;
 }
 </style>
+

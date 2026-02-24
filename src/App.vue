@@ -5,7 +5,7 @@ const navLinks = [
   { to: '/user/login', label: 'Login' },
   { to: '/user/signup', label: 'Sign Up' },
   { to: '/post/create', label: 'Write Post' },
-  { to: '/post/list', label: 'Post List' },
+  { to: '/board/list', label: 'Board List' },
 ]
 </script>
 

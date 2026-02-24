@@ -26,6 +26,16 @@ const router = createRouter({
       component: () => import('../views/PostCreateView.vue'),
     },
     {
+      path: '/board/list',
+      name: 'board-list',
+      component: () => import('../views/BoardListView.vue'),
+    },
+    {
+      path: '/board/list/:username',
+      name: 'board-list-user',
+      component: () => import('../views/BoardListView.vue'),
+    },
+    {
       path: '/user/login',
       name: 'login',
       component: () => import('../views/LoginView.vue'),

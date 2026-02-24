@@ -4,7 +4,7 @@ const list = async () => {
   let data = {}
 
   await api
-    .get('/json/community/list')
+    .get('/board/list')
     .then((res) => {
       data = res.data
     })
@@ -18,7 +18,7 @@ const createPost = async (req) => {
   let data = {}
 
   await api
-    .post('/json/community/create', req)
+    .post('/board/create', req)
     .then((res) => {
       data = res.data
     })
@@ -28,4 +28,50 @@ const createPost = async (req) => {
   return data
 }
 
-export default { list, createPost }
+const listByUser = async (username) => {
+  let data = {}
+
+  await api
+    .get(`/board/list/${encodeURIComponent(username)}`)
+    .then((res) => {
+      data = res.data
+    })
+    .catch((error) => {
+      data = error.data
+    })
+  return data
+}
+
+const modifyPost = async (idx, req) => {
+  let data = {}
+
+  await api
+    .put(`/board/modify/${idx}`, req)
+    .then((res) => {
+      data = res.data
+    })
+    .catch((error) => {
+      data = error.data
+    })
+
+  return data
+}
+
+const deletePost = async (idx, username) => {
+  let data = {}
+
+  await api
+    .delete(`/board/delete/${idx}`, {
+      params: { username },
+    })
+    .then((res) => {
+      data = res.data
+    })
+    .catch((error) => {
+      data = error.data
+    })
+
+  return data
+}
+
+export default { list, listByUser, createPost, modifyPost, deletePost }

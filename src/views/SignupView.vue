@@ -29,6 +29,7 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import userApi from '@/api/user'
 
 const form = reactive({
@@ -40,6 +41,7 @@ const form = reactive({
 const loading = ref(false)
 const message = ref('')
 const isError = ref(false)
+const router = useRouter()
 
 const submitSignup = async () => {
   loading.value = true
@@ -57,6 +59,7 @@ const submitSignup = async () => {
       form.email = ''
       form.name = ''
       form.password = ''
+      router.push('/user/login')
       return
     }
 

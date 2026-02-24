@@ -24,6 +24,7 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import userApi from '@/api/user'
 
 const form = reactive({
@@ -34,6 +35,7 @@ const form = reactive({
 const loading = ref(false)
 const message = ref('')
 const isError = ref(false)
+const router = useRouter()
 
 const submitLogin = async () => {
   loading.value = true
@@ -46,10 +48,11 @@ const submitLogin = async () => {
       password: form.password,
     })
 
-    if (result && result.success) {
+    if (!result || result.success !== false) {
       message.value = '로그인에 성공했습니다.'
       form.email = ''
       form.password = ''
+      router.push('/post/create')
       return
     }
 
