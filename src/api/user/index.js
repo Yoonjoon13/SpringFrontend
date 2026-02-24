@@ -16,7 +16,7 @@ const login = async (req) => {
 const signup = async (req) => {
   let data = {}
   await api
-    .post('/user/join', req)
+    .post('/user/signup', req)
     .then((res) => {
       data = res.data
     })

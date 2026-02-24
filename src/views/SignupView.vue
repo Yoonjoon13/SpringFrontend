@@ -5,8 +5,8 @@
 
       <form class="form" @submit.prevent="submitSignup">
         <label>
-          아이디
-          <input v-model="form.username" type="text" required />
+          Email
+          <input v-model="form.email" type="email" required />
         </label>
 
         <label>
@@ -32,7 +32,7 @@ import { reactive, ref } from 'vue'
 import userApi from '@/api/user'
 
 const form = reactive({
-  username: '',
+  email: '',
   name: '',
   password: '',
 })
@@ -48,21 +48,20 @@ const submitSignup = async () => {
 
   try {
     const result = await userApi.signup({
-      username: form.username,
+      email: form.email,
       name: form.name,
       password: form.password,
     })
-
-    if (result && result.success) {
-      message.value = '회원가입이 완료되었습니다.'
-      form.username = ''
+    if (!result || result.success !== false) {
+      message.value = 'Signup completed.'
+      form.email = ''
       form.name = ''
       form.password = ''
       return
     }
 
     isError.value = true
-    message.value = result?.message || '회원가입에 실패했습니다.'
+    message.value = result?.message || 'Signup failed.'
   } catch (err) {
     isError.value = true
     message.value = err?.message || '요청 중 오류가 발생했습니다.'
