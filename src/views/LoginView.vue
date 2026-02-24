@@ -5,8 +5,8 @@
 
       <form class="form" @submit.prevent="submitLogin">
         <label>
-          아이디
-          <input v-model="form.username" type="text" required />
+          이메일
+          <input v-model="form.email" type="email" required />
         </label>
 
         <label>
@@ -42,13 +42,13 @@ const submitLogin = async () => {
 
   try {
     const result = await userApi.login({
-      username: form.username,
+      email: form.email,
       password: form.password,
     })
 
     if (result && result.success) {
       message.value = '로그인에 성공했습니다.'
-      form.username = ''
+      form.email = ''
       form.password = ''
       return
     }

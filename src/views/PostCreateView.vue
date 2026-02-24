@@ -11,12 +11,12 @@
 
         <label>
           작성자
-          <input v-model="form.author" type="text" required />
+          <input v-model="form.name" type="text" required />
         </label>
 
         <label>
           내용
-          <textarea v-model="form.content" rows="8" required />
+          <textarea v-model="form.contents" rows="8" required />
         </label>
 
         <button type="submit" :disabled="loading">등록하기</button>
@@ -33,8 +33,8 @@ import communityApi from '@/api/community'
 
 const form = reactive({
   title: '',
-  author: '',
-  content: '',
+  name: '',
+  contents: '',
 })
 
 const loading = ref(false)
@@ -49,15 +49,15 @@ const submitPost = async () => {
   try {
     const result = await communityApi.createPost({
       title: form.title,
-      author: form.author,
-      content: form.content,
+      name: form.name,
+      contents: form.contents,
     })
 
     if (result && result.success) {
       message.value = '게시글이 등록되었습니다.'
       form.title = ''
-      form.author = ''
-      form.content = ''
+      form.name = ''
+      form.contents = ''
       return
     }
 
