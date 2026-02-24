@@ -1,15 +1,16 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <main>
+    <section class="page">
+      <h1>About</h1>
+      <p>임시 About 페이지</p>
+    </section>
+  </main>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
+<style scoped>
+.page {
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 1.5rem;
 }
 </style>
